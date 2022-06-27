@@ -8,11 +8,10 @@ import { QUERY_PRODUCT } from '../../src/graphql/product';
 const Home: NextPage = () => {
   const router = useRouter()
   
-  const [getProduct, { loading, error, data }] = useLazyQuery(QUERY_PRODUCT);
+  const [getProduct, { loading, error, data }] = useLazyQuery(QUERY_PRODUCT, {
+    fetchPolicy: 'no-cache'
+  });
   // if (!data.product) return <p>Product not found!</p>
-
-  async function onAddToBag () {
-  }
   
   useEffect(() => {
     if (router.isReady) {
@@ -29,7 +28,7 @@ const Home: NextPage = () => {
 
   return (
     <div>
-      <ProductOverview {...data?.product} onClick={onAddToBag} />
+      <ProductOverview {...data?.product} />
     </div>
   )
 }
